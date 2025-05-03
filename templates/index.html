@@ -222,8 +222,9 @@
         </header>
 
         <div class="search-card">
-            <form method="post" class="search-form">
+            <form method="post" enctype="multipart/form-data" class="search-form">
                 <input type="text" name="search" placeholder="Enter your question..." class="search-input">
+                <input type="file" name="image" accept="image/*">
                 <button type="submit" class="search-button">Search</button>
             </form>
         </div>

@@ -10,4 +10,3 @@ class Question(Base):
     id = Column(Integer, primary_key=True)
     question_text = Column(Text, nullable=False)
     answer_text = Column(Text, nullable=True)
-    video_text = Column(Text, nullable=True)

@@ -50,6 +50,8 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         h3 {
@@ -61,6 +63,7 @@
         p {
             font-size: 16px;
             margin: 0 0 12px;
+            overflow-wrap: break-word;
         }
 
         .answer {
@@ -74,6 +77,34 @@
             border-radius: 12px;
             margin-top: 10px;
             border-left: 4px solid var(--primary-color);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .explanation pre {
+            white-space: pre-wrap;
+            background-color: #e0e0e8;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .explanation code {
+            font-family: 'SF Mono', Menlo, monospace;
+            background-color: #e0e0e8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .explanation ul,
+        .explanation ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .explanation li {
+            margin-bottom: 8px;
         }
 
         iframe {
@@ -94,6 +125,15 @@
             text-align: center;
             color: var(--text-secondary);
             font-size: 18px;
+        }
+
+        .video-placeholder {
+            background-color: #f0f0f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 15px;
         }
 
         @media (max-width: 600px) {
@@ -121,37 +161,18 @@
 
     {% if results %}
         {% for result in results %}
-            <div class="result-card">
-                <h3>Question:</h3>
-                <p>{{ result.question_text }}</p>
+        <div class="result-card">
+            <h3>Question:</h3>
+            <p>{{ result.question_text }}</p>
 
-                <h3>Answer:</h3>
-                <p class="answer">{{ result.answer_text or 'No answer provided' }}</p>
-
-                <h3>Explanation (AI Generated):</h3>
-                <div class="explanation">
-                    {{ result.explanation|md|safe }}
-                </div>
-
-                {% if result.video_text %}
-                    <h3>Video Explanation:</h3>
-                    {% if 'youtu.be' in result.video_text %}
-                        {% set youtube_id = result.video_text.split('/')[-1].split('?')[0] %}
-                    {% elif 'v=' in result.video_text %}
-                        {% set youtube_id = result.video_text.split('v=')[-1].split('&')[0] %}
-                    {% else %}
-                        {% set youtube_id = None %}
-                    {% endif %}
-
-                    {% if youtube_id %}
-                        <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/{{ youtube_id }}" allowfullscreen></iframe>
-                        </div>
-                    {% else %}
-                        <p><a href="{{ result.video_text }}" target="_blank">View External Video</a></p>
-                    {% endif %}
-                {% endif %}
+            <h3>Answer:</h3>
+            <p class="answer">{{ result.answer_text or 'No answer provided' }}</p>
+            
+            <h3>Explanation (AI Generated):</h3>
+            <div class="explanation">
+                {{ result.explanation|md|safe }}
             </div>
+        </div>
         {% endfor %}
     {% else %}
         <p class="no-results">No results found. Try a different search term.</p>
