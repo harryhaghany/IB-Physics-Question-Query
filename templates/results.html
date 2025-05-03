@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+    <title>Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --system-font: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --primary-color: #0071e3;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --card-background: #ffffff;
+            --background: #f5f5f7;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: var(--system-font);
+            background-color: var(--background);
+            color: var(--text-primary);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .result-card {
+            background-color: var(--card-background);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0 0 12px;
+        }
+
+        .answer {
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .explanation {
+            background-color: #f0f0f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .result-card {
+                padding: 24px;
+            }
+
+            iframe {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Results for "{{ search_term }}"</h1>
+    <p><a href="/">← Back to search</a></p>
+
+    {% if results %}
+        {% for result in results %}
+            <div class="result-card">
+                <h3>Question:</h3>
+                <p>{{ result.question_text }}</p>
+
+                <h3>Answer:</h3>
+                <p class="answer">{{ result.answer_text or 'No answer provided' }}</p>
+
+                <h3>Explanation (AI Generated):</h3>
+                <div class="explanation">
+                    {{ result.explanation|md|safe }}
+                </div>
+
+                {% if result.video_text %}
+                    <h3>Video Explanation:</h3>
+                    {% if 'youtu.be' in result.video_text %}
+                        {% set youtube_id = result.video_text.split('/')[-1].split('?')[0] %}
+                    {% elif 'v=' in result.video_text %}
+                        {% set youtube_id = result.video_text.split('v=')[-1].split('&')[0] %}
+                    {% else %}
+                        {% set youtube_id = None %}
+                    {% endif %}
+
+                    {% if youtube_id %}
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/{{ youtube_id }}" allowfullscreen></iframe>
+                        </div>
+                    {% else %}
+                        <p><a href="{{ result.video_text }}" target="_blank">View External Video</a></p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">No results found. Try a different search term.</p>
+    {% endif %}
+</body>
+</html>

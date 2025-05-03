@@ -1,19 +1,265 @@
+<!doctype html>
+<html>
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>Search IB Questions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --system-font: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --primary-color: #0071e3;
+            --primary-hover: #0077ed;
+            --background: #f5f5f7;
+            --card-background: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --nav-height: 44px;
+        }
 
+        * {
+            transition: all 0.25s ease-in-out;
+        }
+
+        body {
+            font-family: var(--system-font);
+            background-color: var(--background);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 980px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 22px;
+        }
+
+        .nav-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .search-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-input {
+            font-family: var(--system-font);
+            font-size: 17px;
+            padding: 16px 20px;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 125, 250, 0.1);
+        }
+
+        .search-button {
+            font-family: var(--system-font);
+            font-size: 17px;
+            font-weight: 500;
+            background: linear-gradient(135deg, #0071e3, #005bb5);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 113, 227, 0.3);
+        }
+
+        .search-button:hover {
+            background: linear-gradient(135deg, #0077ed, #0061c2);
+        }
+
+        .search-button:active {
+            transform: scale(0.98);
+        }
+
+        footer {
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        #about-project,
+        #about-me {
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 32px;
+            background: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            .search-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
-    </div>
-</body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-title">IB Physics</div>
+            <div class="nav-links">
+                <a href="#about-project" class="nav-link">About the Project</a>
+                <a href="#about-me" class="nav-link">About Me</a>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container">
+        <header>
+            <h1>Question Search</h1>
+            <p class="subtitle">Find answers to IB Physics questions</p>
+        </header>
+
+        <div class="search-card">
+            <form method="post" class="search-form">
+                <input type="text" name="search" placeholder="Enter your question..." class="search-input">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+
+        <footer>
+            <p>© 2025 IB Physics Resources</p>
+        </footer>
+    </div>
+
+    <div id="about-project">
+        <h2>About the Project</h2>
+        <p>This project helps students search through past IB Physics questions and view model answers. Built for accessibility, learning, and academic confidence.</p>
+    </div>
+
+    <div id="about-me">
+        <h2>About Me</h2>
+        <p>I'm a computer science student passionate about physics, education, and user-friendly tools. I created this site to make IB Physics easier and more interactive for students everywhere.</p>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+
+                document.querySelectorAll('#about-project, #about-me').forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
 </html>
