@@ -167,6 +167,16 @@
             transform: scale(0.98);
         }
 
+        .usage-instructions {
+            margin-top: 24px;
+            padding: 16px;
+            background-color: rgba(0, 113, 227, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
         footer {
             margin-top: 40px;
             color: var(--text-secondary);
@@ -227,21 +237,27 @@
                 <input type="file" name="image" accept="image/*">
                 <button type="submit" class="search-button">Search</button>
             </form>
+            
+            <div class="usage-instructions">
+                <strong>How to use QuBot:</strong><br>
+                • QuBot works with PHSI191 past exam papers from 2021 to 2024<br>
+                • If you're stuck on a question from the past exam papers, simply paste the question text into the search box above<br>
+            </div>
         </div>
 
         <footer>
-            <p>© 2025 PHSI191 University of Otago</p>
+            <p>© 2025 PHSI191 - Harry Haghani</p>
         </footer>
     </div>
 
     <div id="about-project">
         <h2>About the Project</h2>
-        <p>This project helps students search through past PHSI191 questions and view model answers. Built for accessibility, learning, and academic confidence.</p>
+        <p>This project helps students search through past PHSI191 questions and view answers as well as AI-generated explanations. Built for accessibility, learning, and academic confidence.</p>
     </div>
 
     <div id="about-me">
         <h2>About Me</h2>
-        <p>I'm a computer science student passionate about physics, education, and user-friendly tools. I created this site to make Physics easier and more interactive for students everywhere.</p>
+        <p>I'm a computer science student passionate about physics, education, and user-friendly tools. I created this site to make Physics easier and more interactive for HSFY students who suck at Physics.</p>
     </div>
 
     <script>
