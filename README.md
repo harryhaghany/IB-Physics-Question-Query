@@ -1,13 +1,4 @@
-# GitHub Codespaces ♥️ Flask
-
-Welcome to your shiny new Codespace running Flask! We've got everything fired up and running for you to explore Flask.
-
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
-
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
-
-To run this application:
-
-```
-flask --debug run
-```
+QuBot PHSI191 Question Search
+#### Video Demo:  <URL HERE>
+#### Description:
+QuBot PHSI191 Question Search is an intelligent web-based search engine designed to help students quickly locate and review past multiple-choice questions and worked solutions from the University of Otago's PHSI191 physics course. Built with Flask and powered by an SQLite database, QuBot enables users to search questions using keywords, question numbers, or specific physics concepts. Each result includes the original question and a clear, concise explanation of the correct answer, helping students deepen their understanding and prepare more effectively for exams. The backend utilizes SQLAlchemy for efficient database management, while the frontend offers a clean, user-friendly interface for seamless navigation and study.
