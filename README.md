@@ -1,4 +1,4 @@
 QuBot PHSI191 Question Search
-#### Video Demo:  <URL HERE>
+#### Video Demo:  https://youtu.be/dmpEndy8054 
 #### Description:
 QuBot PHSI191 Question Search is an intelligent web-based search engine designed to help students quickly locate and review past multiple-choice questions and worked solutions from the University of Otago's PHSI191 physics course. Built with Flask and powered by an SQLite database, QuBot enables users to search questions using keywords, question numbers, or specific physics concepts. Each result includes the original question and a clear, concise explanation of the correct answer, helping students deepen their understanding and prepare more effectively for exams. The backend utilizes SQLAlchemy for efficient database management, while the frontend offers a clean, user-friendly interface for seamless navigation and study.
