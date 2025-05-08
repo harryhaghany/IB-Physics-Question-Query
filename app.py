@@ -17,7 +17,7 @@ client = genai.Client(api_key=api_key)
 app = Flask(__name__)
 
 # Database setup
-engine = create_engine('sqlite:///PHSI191_questions.db')
+engine = create_engine('sqlite:///questions.db')
 Session = sessionmaker(bind=engine)
 
 def generate_explanation(question_text, answer_text):
