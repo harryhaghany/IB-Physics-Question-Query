@@ -1,4 +1,4 @@
-QuBot PHSI191 Question Search
+QuBot Question Search
 #### Video Demo:  https://youtu.be/dmpEndy8054 
 #### Description:
 QuBot is an intelligent, searchable web app designed to help students at my Univerasity succeed in Physics, a first-year physics course that often challenges students with conceptual depth and demanding multiple-choice assessments. This project aims to make exam preparation more efficient and meaningful by providing not only access to past questions and correct answers, but also detailed explanations powered by AI.
