@@ -1,7 +1,7 @@
 QuBot Question Search
 #### Video Demo:  https://youtu.be/dmpEndy8054 
 #### Description:
-QuBot is an intelligent, searchable web app designed to help students at my Univerasity succeed in Physics, a first-year physics course that often challenges students with conceptual depth and demanding multiple-choice assessments. This project aims to make exam preparation more efficient and meaningful by providing not only access to past questions and correct answers, but also detailed explanations powered by AI.
+QuBot is an intelligent, searchable web app designed to help students at my University succeed in Physics, a first-year physics course that often challenges students with conceptual depth and demanding multiple-choice assessments. This project aims to make exam preparation more efficient and meaningful by providing not only access to past questions and correct answers, but also detailed explanations powered by AI.
 
 Built with Python and Flask, QuBot combines a structured SQLite database with the language capabilities of the Gemini API to offer a seamless, searchable interface for physics revision. Whether you're targeting specific physics topics or just reviewing past paper questions, QuBot offers an interactive and intelligent platform to study smarter.
 
